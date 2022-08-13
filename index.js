@@ -1,7 +1,9 @@
-const { inquirerMenu, stop } = require("./helpers/inquirer")
+const { inquirerMenu, stop, readInput } = require("./helpers/inquirer");
+const Searching = require("./models/searching");
 
 const main = async () => {
 
+  const searching = new Searching()
   let opt
 
   do {
@@ -11,7 +13,23 @@ const main = async () => {
     switch (opt) {
 
       case 1:
-        console.log('First option!')
+
+      // [x]: Show message.
+      const place = await readInput('City:')
+      console.log(place)
+      
+      // [ ]: Search places.
+      // [ ]: Select place.
+      // [ ]: Weather.
+      // [ ]: Show resulta.
+        
+        console.log('\nAbout city: \n'.green)
+        console.log('City:', )
+        console.log('Lat:', )
+        console.log('Lng:', )
+        console.log('Temperature:', )
+        console.log('Minimun:', )
+        console.log('Maximun:', )
         break;
 
       case 2:
