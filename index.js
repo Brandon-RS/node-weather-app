@@ -14,22 +14,22 @@ const main = async () => {
 
       case 1:
 
-      // [x]: Show message.
-      const place = await readInput('City:')
-      console.log(place)
-      
-      // [ ]: Search places.
-      // [ ]: Select place.
-      // [ ]: Weather.
-      // [ ]: Show resulta.
-        
+        // [x]: Show message.
+        const place = await readInput('City:')
+        await searching.city(place)
+
+        // [ ]: Search places.
+        // [ ]: Select place.
+        // [ ]: Weather.
+        // [ ]: Show resulta.
+
         console.log('\nAbout city: \n'.green)
-        console.log('City:', )
-        console.log('Lat:', )
-        console.log('Lng:', )
-        console.log('Temperature:', )
-        console.log('Minimun:', )
-        console.log('Maximun:', )
+        console.log('City:',)
+        console.log('Lat:',)
+        console.log('Lng:',)
+        console.log('Temperature:',)
+        console.log('Minimun:',)
+        console.log('Maximun:',)
         break;
 
       case 2:
@@ -44,3 +44,8 @@ const main = async () => {
   } while (opt !== 0);
 }
 main()
+
+/* 
+Para pruebas rápidas del endpoint
+https://reqres.in/
+*/
