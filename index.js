@@ -1,4 +1,6 @@
-const { inquirerMenu, stop, readInput } = require("./helpers/inquirer");
+require('dotenv').config()
+
+const { inquirerMenu, stop, readInput, listPlaces } = require("./helpers/inquirer");
 const Searching = require("./models/searching");
 
 const main = async () => {
@@ -16,30 +18,49 @@ const main = async () => {
 
         // [x]: Show message.
         const place = await readInput('City:')
-        await searching.city(place)
 
-        // [ ]: Search places.
-        // [ ]: Select place.
-        // [ ]: Weather.
-        // [ ]: Show resulta.
+        // [x]: Search places.
+        const places = await searching.city(place)
 
+        // [x]: Select place.
+        const id = await listPlaces(places)
+        if (id === '0') continue
+        const selectedPlace = places.find(place => place.id === id)
+
+        // [x]: description!
+        searching.addHistory(selectedPlace.name)
+
+        // [x]: Weather.
+        const weather = await searching.weatherPlace(selectedPlace.lat, selectedPlace.lng)
+
+        // [x]: Show result.
+        console.clear()
         console.log('\nAbout city: \n'.green)
-        console.log('City:',)
-        console.log('Lat:',)
-        console.log('Lng:',)
-        console.log('Temperature:',)
-        console.log('Minimun:',)
-        console.log('Maximun:',)
+        console.log('City:', selectedPlace.name)
+        console.log('Lat:', selectedPlace.lat)
+        console.log('Lng:', selectedPlace.lng)
+        console.log('Temperature:', weather.temp)
+        console.log('Minimun:', weather.min)
+        console.log('Maximun:', weather.max)
+        console.log('Desc:', weather.desc)
         break;
 
       case 2:
-        console.log('First option!')
+        // searching.history.forEach((place, i) => {
+        //   const idx = `${i + 1}. `.green
+        //   console.log(`${idx}${place}`)
+        // })
+
+        searching.historyCap.forEach((place, i) => {
+          const idx = `${i + 1}. `.green
+          console.log(`${idx}${place}`)
+        })
+
+        // searching.readDB()
         break;
     }
 
-    if (opt !== 0) {
-      await stop()
-    }
+    opt !== 0 ? await stop() : console.clear()
 
   } while (opt !== 0);
 }
